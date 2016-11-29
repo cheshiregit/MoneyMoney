@@ -3,6 +3,7 @@ from mmhandler import MmHandler
 import config
 import telebot
 import re
+
 """
 TODO:
 Оповещения (Ты забыл обо мне?)
@@ -16,6 +17,8 @@ TODO:
 
 bot = telebot.TeleBot(config.token)
 handler = MmHandler(0)  # по умолчанию user_id = 0
+
+
 # прикрутить вебхуки
 # прикрутить разбор сообщения на естественном языке
 
@@ -32,7 +35,9 @@ def start(message):
 
 @bot.message_handler(commands=['help'])
 def help(message):
-    pass
+    help_str = "добавить доход:\n+ {сумма} {название} {коммент}\nдобавить фиксированный доход:\n+ {сумма} {название} {дата} {коммент}\nдобавить расход:\n- {сумма} {категория} {коммент}\nпоказать категории:\nпокажи категории\nдобавить категорию:\nдобавь категорию {название}\nудалить категорию:\nудали категорию {название}\nпосмотреть отчет за месяц:\nотчет за {месяц}\nпосмотреть отчет за определенный период:\nотчет с {начальная дата} по {конечная дата}\nформат даты: xx.xx.xxxx"
+    bot.send_message(message.chat.id, 'Hello. This you can do:')
+    bot.send_message(message.chat.id, help_str)
 
 
 @bot.message_handler(content_types=["text"])
@@ -80,6 +85,7 @@ def parse(message):
             # отчет с date по date
     else:
         pass  # вызов help
+
 
 # бесконечная петля опроса
 if __name__ == '__main__':
